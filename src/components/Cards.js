@@ -3,9 +3,15 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import CardsData from "./CardsData.js";
 import "./style.css";
+import { useDispatch } from "react-redux";
+import { ADD } from "../redux/actions/action";
 
 export default function Cards() {
   const [data, setData] = useState(CardsData);
+  const dispatch = useDispatch();
+  const send = (e) => {
+    dispatch(ADD(e));
+  };
   return (
     <div className="container mt-3">
       <h1 className="text-center">Add to Cart</h1>
@@ -27,7 +33,11 @@ export default function Cards() {
                   <Card.Title>{element.rname}</Card.Title>
                   <Card.Text>Price : ₹ {element.price}</Card.Text>
                   <div className="button_div d-flex justify-content-center">
-                    <Button variant="primary" className="col-lg-12">
+                    <Button
+                      variant="primary"
+                      onClick={() => send(element)}
+                      className="col-lg-12"
+                    >
                       Add to Cart
                     </Button>
                   </div>
