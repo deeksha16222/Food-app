@@ -9,8 +9,11 @@ import MenuItem from "@mui/material/MenuItem";
 import cart from "../cart.gif";
 import Table from "react-bootstrap/Table";
 import { useSelector } from "react-redux";
+import { DLT } from "../redux/actions/action";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const getdata = useSelector((state) => state.cartreducer.carts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -19,6 +22,9 @@ const Header = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const dlt = (id) => {
+    dispatch(DLT(id));
   };
   return (
     <div>
@@ -74,11 +80,16 @@ const Header = () => {
                       <>
                         <tr>
                           <td>
-                            <NavLink to={`/cart/${e.id}`}><img
-                            src={e.imgdata}
-                            style={{ width: "5rem", height: "5rem" }}
-                            alt=""
-                          /></NavLink>
+                            <NavLink
+                              to={`/cart/:${e.id}`}
+                              onClick={handleClose}
+                            >
+                              <img
+                                src={e.imgdata}
+                                style={{ width: "5rem", height: "5rem" }}
+                                alt=""
+                              />
+                            </NavLink>
                           </td>
                           <td>
                             <p>{e.rname}</p>
@@ -90,6 +101,7 @@ const Header = () => {
                                 fontSize: 20,
                                 cursor: "pointer",
                               }}
+                              onClick={() => dlt(e.id)}
                             >
                               <i className="fas fa-trash smalltrash"></i>
                             </p>
@@ -101,6 +113,7 @@ const Header = () => {
                               fontSize: 20,
                               cursor: "pointer",
                             }}
+                            onClick={() => dlt(e.id)}
                           >
                             <i className="fas fa-trash largetrash"></i>
                           </td>

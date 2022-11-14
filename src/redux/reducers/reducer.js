@@ -9,7 +9,9 @@ export const cartreducer = (state = INIT_STATE, action) => {
         ...state,
         carts: [...state.carts, action.payload],
       };
-      default :
-      return state
+    case "RMV_CART":
+      const data = state.carts.filter((ele) => ele.id !== action.payload);
+    default:
+      return state;
   }
 };
